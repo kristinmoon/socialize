@@ -69,13 +69,12 @@ const thoughtController = {
         }
         return User.findOneAndUpdate(
           { _id: params.userId },
-          // { $pull: { thoughts: params.thoughtId } },
           { new: true }
         );
       })
       .then(dbUserData => {
         if (!dbUserData) {
-          res.status(404).json({ message: 'No name found with this id!' });
+          res.status(404).json({ message: 'No user found with this id!' });
           return;
         }
         res.json(dbUserData);
@@ -106,7 +105,7 @@ const thoughtController = {
       .catch(err => res.json(err));
   },
 
-  // POST/create reaction at /api/thoughts/:thoughtId/reactions
+  // POST/create reaction at /api/thoughts/:thoughtId
   addReaction({ params, body }, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
@@ -123,7 +122,7 @@ const thoughtController = {
       .catch(err => res.json(err));
   },
 
-  // DELETE reaction at /api/thoughts/:thoughtId/reactions/:reactionId
+  // DELETE reaction at /api/thoughts/:thoughtId/:reactionId
   removeReaction({ params }, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },

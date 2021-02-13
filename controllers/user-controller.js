@@ -73,15 +73,15 @@ const userController = {
   },
 
   // POST/create a friend at /api/users/:userId/friends/:friendId
-  addFriend({ params, body }, res) {
+  addFriend({ params }, res) {
     User.findOneAndUpdate(
-      { _id: params.friendId },
-      { $push: { reactions: body } },
+      { _id: params.userId },
+      { $push: { friends: { friendId: params.friendId } } },
       { new: true }
     )
       .then(dbUserData => {
         if (!dbUserData) {
-          res.status(404).json({ message: 'No user found with this id!' });
+          res.status(404).json({ message: 'No name found with this id!' });
           return;
         }
         res.json(dbUserData);
@@ -89,7 +89,7 @@ const userController = {
       .catch(err => res.json(err));
   },
 
-  // DELETE/remove a friend at /api/users/:userId/friends
+  // DELETE/remove a friend at /api/users/:userId/friends/:friendId
   removeFriend({ params }, res) {
     User.findOneAndUpdate(
       { _id: params.friendId },
