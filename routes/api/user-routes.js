@@ -7,17 +7,13 @@ router
   .get(getAllUser)
   .post(createUser);
 
-// GET one user by id, PUT/update a user, and DELETE a user at /api/users/:userId
+// GET one user by id, PUT/update a user, DELETE a user, and POST/create a friend at /api/users/:userId
 router
   .route('/:id')
   .get(getUserById)
   .put(updateUser)
-  .delete(deleteUser);
-
-// POST/create a friend at /api/users/:userId
-router
-  .route('/:id')
-  .put(addFriend)
+  .delete(deleteUser)
+  .put(addFriend);
 
 // DELETE a friend at /api/users/:userId/friends/:friendId
 router
