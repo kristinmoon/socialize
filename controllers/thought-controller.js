@@ -60,12 +60,22 @@ const thoughtController = {
       .catch(err => res.json(err));
   },
 
-  // PUT/update thought by id /api/thoughts/:thoughtId
+  // PUT/update thought by id /api/thoughts/:userId/:thoughtId
   updateThought({ params, body }, res) {
-    Thought.findOneAndUpdate({ _id: params.id }, body, { new: true })
+    Thought.findOneAndUpdate({ _id: params.thoughtId }, body, { new: true })
+      .then(updatedThought => {
+        if (!updatedThought) {
+          return res.status(404).json({ message: 'No thought with this id!' });
+        }
+        return User.findOneAndUpdate(
+          { _id: params.userId },
+          // { $pull: { thoughts: params.thoughtId } },
+          { new: true }
+        );
+      })
       .then(dbUserData => {
         if (!dbUserData) {
-          res.status(404).json({ message: 'No thought found with this id!' });
+          res.status(404).json({ message: 'No name found with this id!' });
           return;
         }
         res.json(dbUserData);
@@ -73,7 +83,7 @@ const thoughtController = {
       .catch(err => res.status(400).json(err));
   },
 
-  // DELETE thought at /api/thoughts/:thoughtId
+  // DELETE thought at /api/thoughts/:userId/:thoughtId
   removeThought({ params }, res) {
     Thought.findOneAndDelete({ _id: params.thoughtId })
       .then(deletedThought => {
