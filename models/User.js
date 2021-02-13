@@ -9,13 +9,13 @@ const UserSchema = new Schema(
   {
     username: {
       type: String,
-      unique: 'This username has already been taken. Please try a different username.',
+      // unique: true,
       require: 'Valid username is required',
       trim: true
     },
     email: {
       type: String,
-      unique: 'This email address has already been used. Please try a different email address.',
+      // unique: 'This email address has already been used. Please try a different email address.',
       required: 'Email address is required',
       validate: [validateEmail, 'Please add a valid email address'],
       match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, 'Please add a valid email address']
