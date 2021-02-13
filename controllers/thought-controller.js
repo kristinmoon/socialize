@@ -17,9 +17,9 @@ const thoughtController = {
       });
   },
 
-  // GET one thought by id /api/thoughts/:id
+  // GET one thought by id /api/thoughts/:userId/:thoughtId
   getThoughtById({ params }, res) {
-    Thought.findOne({ _id: params.id })
+    Thought.findOne({ _id: params.thoughtId })
       .populate({
         path: 'users',
         select: '-__v'
