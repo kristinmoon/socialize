@@ -1,9 +1,26 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 const validateEmail = function (email) {
   const re = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
   return re.test(email)
 };
+
+
+const FriendSchema = new Schema(
+  {
+    // custom id to avoid confusion with parent user _id
+    friendId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId()
+    },
+    // user: [UserSchema]
+  },
+  {
+    toJSON: {
+      getters: true
+    }
+  }
+);
 
 const UserSchema = new Schema(
   {
@@ -26,12 +43,7 @@ const UserSchema = new Schema(
         ref: 'Thought'
       }
     ],
-    friends: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
-    ]
+    friends: [FriendSchema]
   },
   {
     toJSON: {
