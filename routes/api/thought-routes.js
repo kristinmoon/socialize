@@ -11,17 +11,13 @@ router
   .route('/:userId')
   .post(addThought);
 
-// GET one thought by id, PUT/update a thought, and DELETE a thought at /api/thoughts/:thoughtId
+// GET one thought by id, PUT/update a thought, POST/create a reaction, and DELETE a thought at /api/thoughts/:thoughtId
 router
   .route('/:userId/:thoughtId')
   .get(getThoughtById)
   .put(updateThought)
   .delete(removeThought)
   .post(addReaction);
-
-// // POST/create a reaction at /api/thoughts/:thoughtId/reactions
-// router
-//   .route('/:userId/:thoughtId/reactions')
 
 // DELETE a reaction at /api/thoughts/:thoughtId/:reactionId
 router

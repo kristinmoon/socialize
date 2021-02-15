@@ -26,7 +26,6 @@ const thoughtController = {
       })
       .select('-__v')
       .then(dbUserData => {
-        // If no user is found, send 404
         if (!dbUserData) {
           res.status(404).json({ message: 'No thought found with this id!' });
           return;
@@ -97,7 +96,7 @@ const thoughtController = {
       })
       .then(dbUserData => {
         if (!dbUserData) {
-          res.status(404).json({ message: 'No user found with this id!' });
+          res.status(404).json({ message: 'thought' });
           return;
         }
         res.json(dbUserData);
