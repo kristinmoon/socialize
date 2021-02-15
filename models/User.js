@@ -6,21 +6,21 @@ const validateEmail = function (email) {
 };
 
 
-const FriendSchema = new Schema(
-  {
-    // custom id to avoid confusion with parent user _id
-    friendId: {
-      type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId()
-    },
-    // user: [UserSchema]
-  },
-  {
-    toJSON: {
-      getters: true
-    }
-  }
-);
+// const FriendSchema = new Schema(
+//   {
+//     // custom id to avoid confusion with parent user _id
+//     friendId: {
+//       type: Schema.Types.ObjectId,
+//       default: () => new Types.ObjectId()
+//     },
+//     // user: [UserSchema]
+//   },
+//   {
+//     toJSON: {
+//       getters: true
+//     }
+//   }
+// );
 
 const UserSchema = new Schema(
   {
@@ -43,7 +43,10 @@ const UserSchema = new Schema(
         ref: 'Thought'
       }
     ],
-    friends: [FriendSchema]
+    friends: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Friend'
+    }]
   },
   {
     toJSON: {
@@ -61,4 +64,6 @@ UserSchema.virtual('friendCount').get(function () {
 
 const User = model('User', UserSchema);
 
+
 module.exports = User;
+

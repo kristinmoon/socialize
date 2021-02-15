@@ -9,7 +9,7 @@ router
 
 // GET one user by id, PUT/update a user, DELETE a user, and POST/create a friend at /api/users/:userId
 router
-  .route('/:id')
+  .route('/:userId')
   .get(getUserById)
   .put(updateUser)
   .delete(deleteUser)
